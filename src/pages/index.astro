@@ -1,17 +1,38 @@
 ---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
 
+const posts = await getCollection('posts');
+const recentPosts = posts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title="Akshar Gupta">
+  <h1>Akshar Gupta</h1>
+  <p>
+    Technical content developer working at the intersection of AI and course design.
+    I write about technology, education, reading, and origami.
+  </p>
+
+  <h2>Recent Posts</h2>
+  {recentPosts.length > 0 ? (
+    <ul class="post-list">
+      {recentPosts.map((post) => (
+        <li>
+          <a href={`/posts/${post.id}`}>{post.data.title}</a>
+          <div class="post-date">
+            {post.data.date.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </div>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>No posts yet.</p>
+  )}
+  <p><a href="/posts">View all posts &rarr;</a></p>
+</Base>

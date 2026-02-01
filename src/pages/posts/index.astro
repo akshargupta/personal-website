@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('posts');
+const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Get all unique tags
+const allTags = [...new Set(posts.flatMap(post => post.data.tags))].sort();
+---
+
+<Base title="Posts - Akshar Gupta">
+  <h1>Posts</h1>
+
+  {allTags.length > 0 && (
+    <div class="tags" style="margin-bottom: 2rem;">
+      {allTags.map(tag => (
+        <a href={`/posts/tag/${tag}`} class="tag">{tag}</a>
+      ))}
+    </div>
+  )}
+
+  {sortedPosts.length > 0 ? (
+    <ul class="post-list">
+      {sortedPosts.map((post) => (
+        <li>
+          <a href={`/posts/${post.id}`}>{post.data.title}</a>
+          <div class="post-date">
+            {post.data.date.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </div>
+          {post.data.tags.length > 0 && (
+            <div class="tags">
+              {post.data.tags.map(tag => (
+                <a href={`/posts/tag/${tag}`} class="tag">{tag}</a>
+              ))}
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>No posts yet.</p>
+  )}
+</Base>
