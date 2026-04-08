@@ -1,38 +1,31 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getCollection } from 'astro:content';
-
-const posts = await getCollection('posts');
-const recentPosts = posts
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
 ---
-
 <Base title="Akshar Gupta">
-  <h1>Akshar Gupta</h1>
-  <p>
-    Technical content developer working at the intersection of AI and course design.
-    I write about technology, education, reading, and origami.
-  </p>
-
-  <h2>Recent Posts</h2>
-  {recentPosts.length > 0 ? (
-    <ul class="post-list">
-      {recentPosts.map((post) => (
-        <li>
-          <a href={`/posts/${post.id}`}>{post.data.title}</a>
-          <div class="post-date">
-            {post.data.date.toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </div>
-        </li>
-      ))}
-    </ul>
-  ) : (
-    <p>No posts yet.</p>
-  )}
-  <p><a href="/posts">View all posts &rarr;</a></p>
+  <section class="intro">
+    <h1>Akshar Gupta</h1>
+    <p class="muted">Technical Learning Experience Designer</p>
+    <p>
+      I design courses and learning experiences in AI, machine learning, and data science.
+      Currently at <strong>Udacity</strong> (part of Accenture), where I build courses on
+      generative AI and agentic systems, and develop internal tooling for content creation.
+    </p>
+    <p>
+      Previously at upGrad, Cuemath, and Teach for India. I studied mathematics at
+      BITS Pilani and digital education at the University of Edinburgh.
+    </p>
+    <p class="links">
+      <a href="mailto:akshar.gupta19@gmail.com">email</a> ·
+      <a href="/cv">cv</a>
+    </p>
+  </section>
 </Base>
+
+<style>
+  .intro {
+    margin-top: 2rem;
+  }
+  .links {
+    margin-top: 1rem;
+  }
+</style>
