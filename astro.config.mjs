@@ -1,9 +1,15 @@
 import { defineConfig } from 'astro/config';
 import pdf from 'astro-pdf';
 
+// Skip the PDF integration on Vercel — its build environment is missing the
+// system libraries Puppeteer's bundled Chromium needs (libnspr4.so, etc).
+// Locally, run `npm run cv` to regenerate public/cv.pdf from cv.md before
+// committing. Vercel then serves the committed public/cv.pdf as a static asset.
+const isVercel = !!process.env.VERCEL;
+
 export default defineConfig({
   site: 'https://akshargupta.vercel.app',
-  integrations: [
+  integrations: isVercel ? [] : [
     pdf({
       baseOptions: {
         waitUntil: 'networkidle0',

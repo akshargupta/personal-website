@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "cv": "astro build && cp dist/cv.pdf public/cv.pdf"
   },
   "dependencies": {
     "astro": "^5.17.1"
