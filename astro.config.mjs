@@ -24,8 +24,11 @@ export default defineConfig({
           },
         },
       },
+      // Output to a distinct filename so astro-pdf doesn't collide with the
+      // static public/cv.pdf that gets copied into dist/ on every build.
+      // The `npm run cv` script copies this back to public/cv.pdf.
       pages: {
-        '/cv': 'cv.pdf',
+        '/cv': 'cv-build.pdf',
       },
     }),
   ],
