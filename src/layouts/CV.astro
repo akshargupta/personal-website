@@ -1,6 +1,5 @@
 ---
-import '../styles/global.css';
-import ThemeToggle from '../components/ThemeToggle.astro';
+import Base from './Base.astro';
 
 interface Props {
   frontmatter: { title: string };
@@ -8,55 +7,42 @@ interface Props {
 
 const { frontmatter } = Astro.props;
 ---
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Akshar Gupta — CV" />
-    <title>{frontmatter.title}</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  </head>
-  <body>
-    <header>
-      <nav>
-        <a href="/">akshar gupta</a>
-        <ThemeToggle />
-      </nav>
-    </header>
-    <main>
-      <div class="cv-header">
-        <h1>CV</h1>
-        <a href="/akshar-gupta-cv.pdf" download class="download-link">download pdf</a>
-      </div>
-      <article class="cv-content">
-        <slot />
-      </article>
-    </main>
-    <footer>
-      <p class="muted">&copy; {new Date().getFullYear()} Akshar Gupta</p>
-    </footer>
-  </body>
-</html>
+<Base title={frontmatter.title} description="Akshar Gupta — CV">
+  <div class="cv-header">
+    <div>
+      <h1>Akshar Gupta</h1>
+      <p class="contact">
+        <a href="mailto:akshar.gupta19@gmail.com">akshar.gupta19@gmail.com</a> ·
+        <a href="https://github.com/akshargupta">github.com/akshargupta</a> ·
+        <a href="https://linkedin.com/in/akshargupta19">linkedin.com/in/akshargupta19</a>
+      </p>
+    </div>
+    <a href="/cv.pdf" download class="download-link">download pdf</a>
+  </div>
+  <article class="cv-content">
+    <slot />
+  </article>
+</Base>
 
 <style>
-  header { margin-bottom: 2rem; }
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  nav a { font-weight: 600; text-decoration: none; }
   .cv-header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-start;
+    gap: 1rem;
     margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .contact {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+    margin-bottom: 0;
   }
   .download-link {
     font-size: 0.875rem;
     color: var(--color-text-muted);
+    white-space: nowrap;
   }
   .cv-content :global(h2) {
     text-transform: uppercase;
@@ -74,9 +60,95 @@ const { frontmatter } = Astro.props;
     color: var(--color-text-muted);
     font-size: 0.875rem;
   }
-  footer {
-    margin-top: 3rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--color-border);
+
+  @media print {
+    :global(:root),
+    :global([data-theme="dark"]),
+    :global([data-theme="light"]) {
+      --color-bg: #ffffff;
+      --color-text: #1a1a1a;
+      --color-text-muted: #555555;
+      --color-border: #cccccc;
+      --color-link: #1a1a1a;
+    }
+    :global(html) {
+      font-size: 10pt;
+      line-height: 1.35;
+      background: #fff;
+      color: #000;
+    }
+    :global(body) {
+      max-width: none;
+      padding: 0;
+      color: #000;
+      background: #fff;
+    }
+    :global(header),
+    :global(footer) {
+      display: none !important;
+    }
+    :global(main) {
+      margin: 0;
+    }
+    .cv-header {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    .cv-header h1 {
+      font-size: 18pt;
+      margin-bottom: 0.05rem;
+    }
+    .contact {
+      font-size: 9pt;
+      color: #444;
+    }
+    .contact :global(a) {
+      color: #444;
+      text-decoration: none;
+    }
+    .download-link {
+      display: none !important;
+    }
+    .cv-content :global(h2) {
+      font-size: 8pt;
+      color: #555;
+      border-bottom: 1px solid #999;
+      margin-top: 0.6rem;
+      margin-bottom: 0.3rem;
+      padding-bottom: 0.1rem;
+    }
+    .cv-content :global(h3) {
+      font-size: 10.5pt;
+      margin-top: 0.5rem;
+      margin-bottom: 0.05rem;
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+    .cv-content :global(h3 + p) {
+      font-size: 9pt;
+      margin-bottom: 0.2rem;
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+    .cv-content :global(em) {
+      font-size: 9pt;
+      color: #555;
+    }
+    .cv-content :global(p) {
+      margin-bottom: 0.3rem;
+    }
+    .cv-content :global(ul) {
+      margin-bottom: 0.3rem;
+      padding-left: 1rem;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .cv-content :global(li) {
+      margin-bottom: 0.1rem;
+    }
+    .cv-content :global(a) {
+      color: #000;
+      text-decoration: none;
+    }
   }
 </style>
