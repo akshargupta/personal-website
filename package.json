@@ -9,5 +9,8 @@
   },
   "dependencies": {
     "astro": "^5.17.1"
+  },
+  "devDependencies": {
+    "astro-pdf": "^1.8.0"
   }
 }
