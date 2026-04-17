@@ -32,13 +32,13 @@ Python (PyTorch, TensorFlow, HuggingFace, LangChain); agentic AI (Claude Agent S
 - Worked with the engineering team to build an internal tool that auto-grades student projects and generates descriptive, learner-facing feedback.
 
 ### Curriculum Designer, Cuemath
-*April 2021 – April 2022*
+*October 2020 – April 2022*
 
 - Built interactive simulations to explain mathematical concepts using JSXGraph, p5.js, Three.js, and GeoGebra.
 - Designed worksheets and lesson plans for Cuemath's coding and high school mathematics tracks.
 
 ### Subject Matter Expert, Centre for Science of Student Learning
-*May 2019 – March 2021*
+*May 2019 – May 2020*
 
 - Co-developed impact assessment tools deployed in 30,000+ government schools across Jharkhand.
 - Performed data analysis on the resulting large-scale assessment data.
