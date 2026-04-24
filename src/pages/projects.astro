@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+---
+<Base title="Projects — Akshar Gupta">
+  <h1>Projects</h1>
+  <ul class="project-list">
+    {projects.map((project) => (
+      <li class="project-card">
+        <h2>
+          <a href={project.data.url}>{project.data.title}</a>
+        </h2>
+        <p>{project.data.description}</p>
+        <p class="project-meta muted">
+          <span class={`status status--${project.data.status}`}>{project.data.status}</span>
+          {project.data.repo && (
+            <>
+              {' · '}
+              <a href={project.data.repo}>source</a>
+            </>
+          )}
+        </p>
+      </li>
+    ))}
+  </ul>
+</Base>
+
+<style>
+  .project-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 1.5rem;
+  }
+  .project-card {
+    margin-bottom: 2rem;
+  }
+  .project-card h2 {
+    margin-top: 0;
+    font-size: 1.15rem;
+  }
+  .project-meta {
+    font-size: 0.85rem;
+  }
+  .status {
+    display: inline-block;
+    padding: 0.1em 0.5em;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    background: var(--color-border);
+  }
+</style>

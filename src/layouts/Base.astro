@@ -21,8 +21,12 @@ const { title, description = 'Akshar Gupta — Technical Learning Experience Des
   <body>
     <header>
       <nav>
-        <a href="/">akshar gupta</a>
-        <ThemeToggle />
+        <a href="/" class="nav-home">akshar gupta</a>
+        <div class="nav-links">
+          <a href="/projects">projects</a>
+          <a href="/blog">blog</a>
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
     <main>
@@ -47,8 +51,15 @@ const { title, description = 'Akshar Gupta — Technical Learning Experience Des
     align-items: center;
   }
   nav a {
-    font-weight: 600;
     text-decoration: none;
+  }
+  .nav-home {
+    font-weight: 600;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
   footer {
     margin-top: 3rem;

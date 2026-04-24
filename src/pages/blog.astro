@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<Base title="Blog — Akshar Gupta">
+  <h1>Blog</h1>
+  <ul class="post-list">
+    {posts.map((post) => (
+      <li>
+        <a href={`/blog/${post.id}`}>{post.data.title}</a>
+        <time class="muted" datetime={post.data.date.toISOString()}>
+          {post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </time>
+        <p class="muted">{post.data.description}</p>
+      </li>
+    ))}
+  </ul>
+</Base>
+
+<style>
+  .post-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 1.5rem;
+  }
+  .post-list li {
+    margin-bottom: 1.5rem;
+  }
+  .post-list a {
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+  .post-list time {
+    display: block;
+    font-size: 0.85rem;
+    margin-top: 0.15rem;
+  }
+  .post-list p {
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+  }
+</style>
