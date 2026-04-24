@@ -2,7 +2,7 @@
 title: "Dodecahedron #1"
 date: 2026-04-19
 description: "Definition of a 3-edge coloring and first attempt at the helper tool"
-draft: true
+draft: false
 ---
 
 # Dodecahedron #1
