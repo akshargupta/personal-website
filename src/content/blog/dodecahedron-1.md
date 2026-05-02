@@ -3,6 +3,7 @@ title: "Dodecahedron #1"
 date: 2026-04-19
 description: "Definition of a 3-edge coloring and first attempt at the helper tool"
 draft: false
+project: dodecahedron
 ---
 
 I love modular origami and how it has deep connections to seemingly obscure topics in mathematics. An example is the connection between 3-edge coloring of a dodecahedron and graph theory. There will be more technical explanations of the maths behind this connection in future videos and posts, but for now, I want to show off a model that exhibits this property that I made back in January 2019.

@@ -5,18 +5,24 @@ interface Props {
   title: string;
   date: Date;
   description: string;
+  project?: { slug: string; title: string };
 }
 
-const { title, date, description } = Astro.props;
+const { title, date, description, project } = Astro.props;
 const formattedDate = date.toLocaleDateString('en-GB', {
   day: 'numeric',
   month: 'long',
   year: 'numeric',
 });
 ---
-<Base title={`${title} — Akshar Gupta`} description={description}>
+<Base title={`${title} — Akshar Gupta`} description={description} ogType="article">
   <article>
     <header class="post-header">
+      {project && (
+        <p class="post-parent muted">
+          Part of <a href={`/projects/${project.slug}`}>{project.title}</a> →
+        </p>
+      )}
       <h1>{title}</h1>
       <time class="muted" datetime={date.toISOString()}>{formattedDate}</time>
     </header>
@@ -30,6 +36,10 @@ const formattedDate = date.toLocaleDateString('en-GB', {
   }
   .post-header h1 {
     margin-bottom: 0.25rem;
+  }
+  .post-parent {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
   }
   article :global(img) {
     max-width: 100%;

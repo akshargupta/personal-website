@@ -4,17 +4,19 @@ import { getCollection } from 'astro:content';
 
 const projects = await getCollection('projects');
 ---
-<Base title="Projects — Akshar Gupta">
+<Base title="Projects — Akshar Gupta" description="Projects by Akshar Gupta — personal site, dodecahedron assembly tracker, and more.">
   <h1>Projects</h1>
   <ul class="project-list">
     {projects.map((project) => (
       <li class="project-card">
         <h2>
-          <a href={project.data.url}>{project.data.title}</a>
+          <a href={`/projects/${project.id}`}>{project.data.title}</a>
         </h2>
         <p>{project.data.description}</p>
         <p class="project-meta muted">
           <span class={`status status--${project.data.status}`}>{project.data.status}</span>
+          {' · '}
+          <a href={project.data.url}>live</a>
           {project.data.repo && (
             <>
               {' · '}

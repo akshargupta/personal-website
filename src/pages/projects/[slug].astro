@@ -1,0 +1,104 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return projects.map((project) => {
+    const diary = posts
+      .filter((p) => p.data.project === project.id)
+      .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+    return {
+      params: { slug: project.id },
+      props: { project, diary },
+    };
+  });
+}
+
+const { project, diary } = Astro.props;
+const { Content } = await render(project);
+---
+<Base title={`${project.data.title} — Akshar Gupta`} description={project.data.description}>
+  <article>
+    <header class="project-header">
+      <h1>{project.data.title}</h1>
+      <p class="meta muted">
+        <span class={`status status--${project.data.status}`}>{project.data.status}</span>
+        {' · '}
+        <a href={project.data.url}>live</a>
+        {project.data.repo && (
+          <>
+            {' · '}
+            <a href={project.data.repo}>source</a>
+          </>
+        )}
+      </p>
+    </header>
+    <div class="project-body">
+      <Content />
+    </div>
+    {diary.length > 0 && (
+      <section class="diary">
+        <h2>Build diary</h2>
+        <ul class="post-list">
+          {diary.map((post) => (
+            <li>
+              <a href={`/blog/${post.id}`}>{post.data.title}</a>
+              <time class="muted" datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </time>
+              <p class="muted">{post.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </article>
+</Base>
+
+<style>
+  .project-header {
+    margin-bottom: 1.5rem;
+  }
+  .project-header h1 {
+    margin-bottom: 0.25rem;
+  }
+  .meta {
+    font-size: 0.85rem;
+  }
+  .status {
+    display: inline-block;
+    padding: 0.1em 0.5em;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    background: var(--color-border);
+  }
+  .project-body {
+    margin-bottom: 2.5rem;
+  }
+  .diary h2 {
+    margin-top: 0;
+  }
+  .post-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 1rem;
+  }
+  .post-list li {
+    margin-bottom: 1.5rem;
+  }
+  .post-list a {
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+  .post-list time {
+    display: block;
+    font-size: 0.85rem;
+    margin-top: 0.15rem;
+  }
+  .post-list p {
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+  }
+</style>

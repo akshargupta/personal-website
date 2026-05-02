@@ -6,8 +6,6 @@ repo: "https://github.com/akshargupta/dodecahedron"
 status: "in-progress"
 ---
 
-A rotatable 3D visualization of the dodecahedron with its edges colored in three colors — red, green, and blue — so that no two edges of the same color share a vertex.
+A helper for building 30-unit modular origami dodecahedra with a proper 3-edge coloring — every edge is one of three colors, and no two edges of the same color meet at a vertex.
 
-This is a tool for modular origami: when building a 30-unit dodecahedron from three colors of paper, the coloring tells you exactly which color to use for each edge. Spin the model to see any angle while assembling.
-
-Built with Three.js and Vite.
+The hard part of assembling these models is keeping track of which color goes where. This tool lets you mark off units as you place them, with a 3D reference to check against from any angle.
